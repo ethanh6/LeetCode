@@ -46,6 +46,7 @@ with open(os.path.join(dir_name, "makefile"), "w") as f:
     f.write(makefile)
 
 
+print("Problem directory -> " + os.path.join(dir_name) + " created.")
 
 
 
