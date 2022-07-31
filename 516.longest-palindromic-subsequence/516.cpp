@@ -8,6 +8,42 @@ using namespace std;
 
 class Solution {
 public:
+  int longestPalindromeSubseq_1d(string s) {
+
+    int n = s.size(), pre, tmp;
+    vector<int> dp (n, 0);
+
+    auto print = [&](){
+      for (int j= 0; j < n; j++) {
+        cout << dp[j] << " ";
+      }
+      cout << endl;
+    };
+
+    for (int i = n - 1; i >= 0; i--) {
+      for (int j = i; j < n; j++) {
+        tmp = dp[j];
+        if (i > j) {
+          ;
+        }
+        else if (i == j) {
+          dp[j] = 1;
+        } else {
+          if (s[i] == s[j]) {
+            dp[j] = pre + 2;
+          } else {
+            dp[j] = max(dp[j], dp[j-1]);
+          }
+        }
+        pre = tmp;
+      }
+      print();
+    }
+
+    return dp[n-1];
+  }
+
+
   int longestPalindromeSubseq(string s) {
 
     int n = s.size();
@@ -24,7 +60,9 @@ public:
 
     for (int i = n - 1; i >= 0; i--) {
       for (int j = i; j < n; j++) {
-        if (i == j) {
+        if (i > j) {
+          ;
+        } else if (i == j) {
           dp[i][j] = 1;
         } else {
           if (s[i] == s[j]) {
@@ -36,7 +74,7 @@ public:
       }
     }
 
-    print();
+    // print();
     return dp[0][n-1];
   }
 };
@@ -51,10 +89,14 @@ int main() {
   s = "bbbab";
   ans = sol.longestPalindromeSubseq(s);
   assert(ans == 4);
+  ans = sol.longestPalindromeSubseq_1d(s);
+  assert(ans == 4);
 
 
   s = "cbbd";
   ans = sol.longestPalindromeSubseq(s);
+  assert(ans == 2);
+  ans = sol.longestPalindromeSubseq_1d(s);
   assert(ans == 2);
 
   return 0;
