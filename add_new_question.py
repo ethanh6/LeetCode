@@ -21,6 +21,19 @@ int main() {
 """
 
 
+template_py = """
+
+from typing import Optional
+
+sol = Solution
+myans = sol.Func()
+ans = 0
+assert(ans == myans)
+print("(1) passed")
+
+"""
+
+
 # example question URL
 # https://leetcode.com/problems/longest-common-subsequence/
 
@@ -42,7 +55,10 @@ clean:
 
 
 with open(os.path.join(dir_name, file_name), "w") as f:
-    f.write(template_cpp)
+    if question_language == "cpp":
+        f.write(template_cpp)
+    elif question_language == "py":
+        f.write(template_py)
 
 with open(os.path.join(dir_name, "makefile"), "w") as f:
     f.write(makefile)
