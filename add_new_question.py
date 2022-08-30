@@ -25,7 +25,7 @@ template_py = """
 
 from typing import Optional
 
-sol = Solution
+sol = Solution()
 myans = sol.Func()
 ans = 0
 assert(ans == myans)
