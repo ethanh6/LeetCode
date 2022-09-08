@@ -18,9 +18,8 @@ class Solution:
 
             seen.add(n)
             n = get_next(n)
-            print(n)
 
 
 sol = Solution()
 myans = sol.isHappy(19)
-print(myans)
+print("all done")
