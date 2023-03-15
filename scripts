@@ -1,19 +1,40 @@
 import os
 
-template_cpp = """
+template_cpp = """#include <algorithm>
+#include <bitset>
+#include <cassert>
+#include <climits>
+#include <cmath>
+#include <complex>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <deque>
+#include <fstream>
+#include <functional>
+#include <iomanip>
 #include <iostream>
-#include <unordered_map>
+#include <limits>
+#include <list>
+#include <map>
+#include <numeric>
+#include <queue>
+#include <set>
+#include <sstream>
+#include <stack>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
 #include <vector>
-#include <assert.h>
 using namespace std;
 
 int main() {
 
   Solution sol;
-  string ans;
+  auto input;
 
-  ans = sol.SampleFunc();
+  auto ans = sol.SampleFunc();
   assert(ans == xxx);
 
   return 0;
@@ -22,7 +43,6 @@ int main() {
 
 
 template_py = """
-
 from typing import Optional
 
 sol = Solution()
@@ -36,9 +56,10 @@ print("(1) passed")
 
 # example question URL
 # https://leetcode.com/problems/longest-common-subsequence/
+# https://leetcode.com/problems/two-sum/description/
 
 # get slug and number and language
-question_slug = input("Question URL? ").split("/")[-2]
+question_slug = input("Question URL? ").split("/")[4]
 question_number = input("Question number? ")
 question_language = input("Question language [cpp/py] ? ")
 
@@ -48,7 +69,7 @@ os.mkdir(dir_name)
 
 makefile = """
 all: {}
-	clang++ {} -o solu --std=c++17 && ./solu && rm solu
+	clang++ {} -o solu --std=c++20 && ./solu && rm solu
 clean:
 	rm solu
 """.format(file_name, file_name)
