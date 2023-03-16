@@ -15,7 +15,7 @@ question_slug = input("Question URL? ").split("/")[4]
 
 
 # Get the leetcode_session token from browser, and put it into .env
-leetcode_session = os.getenv('LEETCODE_SESSION')
+leetcode_session = os.getenv("LEETCODE_SESSION")
 
 
 # setup the api instance
@@ -79,8 +79,9 @@ res = api_instance.graphql_post(body=get_request(question_slug))
 
 
 # parse the response
-cpp_snippet = [obj.code for obj in res.data.question.code_snippets
-               if obj.lang == "C++"][0]
+cpp_snippet = [
+    obj.code for obj in res.data.question.code_snippets if obj.lang == "C++"
+][0]
 question_id = "{:04d}".format(int(res.data.question.question_frontend_id))
 
 
@@ -88,8 +89,9 @@ question_id = "{:04d}".format(int(res.data.question.question_frontend_id))
 # the actual snippets from the api requests and the test statements
 _includes = '#include "leetcode.hpp"\n\n'
 _snippets = "{S}\n\n".format(S=cpp_snippet)
-_tests = 'TEST_CASE("{N}", "[{I}]"){{\n    Solution s;\n    REQUIRE(true);\n}}'\
-         .format(N=question_slug, I=question_id)
+_tests = 'TEST_CASE("{N}", "[{I}]"){{\n    Solution s;\n    REQUIRE(true);\n}}'.format(
+    N=question_slug, I=question_id
+)
 
 cpp_template = _includes + _snippets + _tests
 

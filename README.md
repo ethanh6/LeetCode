@@ -1,9 +1,27 @@
 # Leetcode
 
-This program is a Leetcode solutions tracker developed using Python that automatically
+This is a Leetcode solutions tracker developed using Python that automatically
 retrieves code snippets from the Leetcode API. It comes with a preconfigured code template
 that includes essential C++ headers and a Catch2 unit testing boilerplate to help verify
 code correctness. CMake is utilized to streamline the building and testing process for ease of use.
+
+```cpp
+// template
+
+#include "leetcode.hpp"
+
+class Solution {
+public:
+    int func() {
+      return 123;
+    }
+};
+
+TEST_CASE("[question slug]", "[question id]"){
+  Solution s;
+  REQUIRE(s.func() == 123);
+}
+```
 
 # Environment
 
@@ -23,7 +41,7 @@ code correctness. CMake is utilized to streamline the building and testing proce
 
 > all commands are run in project root directory
 
-### 0 - Create and activate virtual env and install dependencies
+### 0. Create and activate virtual env and install dependencies
 
 ```
 virtualenv leetcode_env
@@ -76,23 +94,17 @@ cmake --build build
 
 <br>
 
-### 5. Build the code with make
+### 5. Compile and run
+
+If the first command failed, the second one will not run.
 
 ```bash
-make -C build
+make -C build && ./build/<question_id>
 ```
 
 <br>
 
-### 6. Run tests
-
-```bash
-./build/<question_id>
-```
-
-<br>
-
-### 7. Clean up (optional)
+### 6. Clean up (optional)
 
 ```bash
 make -C build clean
