@@ -1,62 +1,105 @@
 # Leetcode
-> C++ solutions tracker with automation
 
-## Environment
-- CMake & make - build system
-- Catch2 - unit testing
-- C++ 17 - based on [leetcode official doc](https://support.leetcode.com/hc/en-us/articles/360011833974-What-are-the-environments-for-the-programming-languages-)
-- [Leetcode API package](https://pypi.org/project/python-leetcode/)
-  - python3
-  - GraphQL
+Leetcode solutions tracker, written in C++17. This program automatically fetches the
+code snippet from the leetcode API, and includes a number of default headers
+of C++ in the code template, along with a Catch2 unit testing boilerplate.
+CMake is used for easier building and testing process.
+
+# Environment
+
+- CMake & Make
+  - build system
+- [Catch2](https://github.com/catchorg/Catch2)
+  - unit testing
+- C++17
+  - based on [leetcode official doc](https://support.leetcode.com/hc/en-us/articles/360011833974-What-are-the-environments-for-the-programming-languages-)
+- [Leetcode API](https://pypi.org/project/python-leetcode/)
+  - Python3 - scripting
+  - GraphQL - fetch the code template
+- [virtualenv](https://virtualenv.pypa.io/en/latest/)
 - Neovim
 
-## How to use:
+# How to use:
+
 > all commands are run in project root directory
 
-### 0. Activate virtual env:
+### 0 - Create and activate virtual env and install dependencies
+
 ```
+virtualenv leetcode_env
 source leetcode_env/bin/activate
+pip3 install -r requirements.txt
 ```
 
-### 1. Add question with script:
+<br>
+
+### 1. Add question
+
 ```bash
 python3 scripts/add_question.py
 ```
-And enter the question url e.g. https://leetcode.com/problems/remove-element/
 
-Corresponding c++ template code will be created under src/ with filename being {id}-{slug}.cpp. `CMakeLists.txt` will also be updated.
+Enter the question url e.g. https://leetcode.com/problems/remove-element/
 
-If the question already exists, the script will do nothing.
+Corresponding C++ template file will be created at src/{id}-{slug}.cpp. `CMakeLists.txt` will also be updated.
 
-### 2. Write code in file
+If the question already exists, the script does nothing.
+
+<br>
+
+### 2. Code
+
 ```bash
 ./src/*.cpp
 ```
 
-### 3. Generate a Project Buildsystem (run it once will suffice):
+<br>
+
+### 3. Generate project buildsystem
+
+Run it once will suffice.
+
 ```bash
 cmake -S . -B build
 ```
 
-### 4. Build project (run it everytime a question is added, meaning changes happen in CMakeLists.txt):
+<br>
+
+### 4. Build project
+
+Run it everytime a question is added, since changes are made to
+`CMakeLists.txt`.
+
 ```bash
 cmake --build build
 ```
 
-### 5. Build the code with make:
+<br>
+
+### 5. Build the code with make
+
 ```bash
 make -C build
 ```
 
-### 6. See test result
+<br>
+
+### 6. Run tests
+
 ```bash
 ./build/<question_id>
 ```
 
-### 7. cleanup
+<br>
+
+### 7. Clean up (optional)
+
 ```bash
 make -C build clean
 ```
 
+<br>
+
 ## todo:
+
 1. build integration with neovim
