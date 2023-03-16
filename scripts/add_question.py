@@ -30,8 +30,9 @@ api_instance = leetcode.DefaultApi(leetcode.ApiClient(configuration))
 
 
 # graphql request object, this will be passed to the api
-get_request = lambda slug: leetcode.GraphqlQuery(
-    query="""
+def get_request(slug):
+    return leetcode.GraphqlQuery(
+        query="""
         query getQuestionDetail($titleSlug: String!) {
           question(titleSlug: $titleSlug) {
             questionId
@@ -69,9 +70,11 @@ get_request = lambda slug: leetcode.GraphqlQuery(
           }
         }
     """,
-    variables=leetcode.GraphqlQueryGetQuestionDetailVariables(title_slug=slug),
-    operation_name="getQuestionDetail",
-)
+        variables=leetcode.GraphqlQueryGetQuestionDetailVariables(
+            title_slug=slug
+        ),
+        operation_name="getQuestionDetail",
+    )
 
 
 # actual query to the qpi

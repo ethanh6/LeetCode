@@ -102,6 +102,15 @@ If the first command failed, the second one will not run.
 make -C build && ./build/<question_id>
 ```
 
+Or in Neovim, with keymap, run 
+
+```lua
+<leader>make
+-- will be equivalent to
+-- :make -C build<cr>: :execute '!./build/' . strpart(expand('%:t'), 0, 4)<enter>"
+```
+
+
 <br>
 
 ### 6. Clean up (optional)
