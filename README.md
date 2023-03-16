@@ -1,9 +1,9 @@
 # Leetcode
 
-Leetcode solutions tracker, written in C++17. This program automatically fetches the
-code snippet from the leetcode API, and includes a number of default headers
-of C++ in the code template, along with a Catch2 unit testing boilerplate.
-CMake is used for easier building and testing process.
+This program is a Leetcode solutions tracker developed using Python that automatically
+retrieves code snippets from the Leetcode API. It comes with a preconfigured code template
+that includes essential C++ headers and a Catch2 unit testing boilerplate to help verify
+code correctness. CMake is utilized to streamline the building and testing process for ease of use.
 
 # Environment
 
