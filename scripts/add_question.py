@@ -1,4 +1,3 @@
-from typing import List
 import os
 import leetcode
 import leetcode.auth
@@ -80,32 +79,34 @@ res = api_instance.graphql_post(body=get_request(question_slug))
 
 
 # parse the response
-cpp_snippet = [obj.code for obj in res.data.question.code_snippets if obj.lang == "C++"][0]
-question_id = res.data.question.question_frontend_id
+cpp_snippet = [obj.code for obj in res.data.question.code_snippets
+               if obj.lang == "C++"][0]
+question_id = "{:04d}".format(int(res.data.question.question_frontend_id))
 
 
 # my desired cpp file template, containing includes statements,
 # the actual snippets from the api requests and the test statements
-_includes = '#include "Leetcode.hpp"\n\n'
+_includes = '#include "leetcode.hpp"\n\n'
 _snippets = "{S}\n\n".format(S=cpp_snippet)
-_tests = 'TEST_CASE("{N}", "[{I}]"){{\n    Solution s;\n\n}}'.format(N=question_slug, I=question_id)
+_tests = 'TEST_CASE("{N}", "[{I}]"){{\n    Solution s;\n    REQUIRE(true);\n}}'\
+         .format(N=question_slug, I=question_id)
 
 cpp_template = _includes + _snippets + _tests
 
 
 # write the cpp template to file
-id_slug = "{:04d}-{}".format(int(question_id), question_slug)
-attempts = 0
+filename = "{}-{}.cpp".format(question_id, question_slug)
 
-# update attempts if the question is done more than once
-while os.path.isfile("./src/{}-{}.cpp".format(id_slug, attempts)):
-    attempts += 1
+# write to files
+if os.path.isfile("./src/{}".format(filename)):
+    print("{} already exists.".format(filename))
+else:
+    # create & write to file
+    with open("./src/{}".format(filename), "w+") as f:
+        f.write(cpp_template)
 
-with open("./src/{}-{}.cpp".format(id_slug, attempts), "w+") as f:
-    f.write(cpp_template)
+    # update CMakeLists.txt
+    with open("./CMakeLists.txt", "a") as f:
+        f.write("add_problem({} {})\n".format(question_id, question_slug))
 
-print("Question: {} already has {} attempts.".format(question_id, attempts))
-print("./src/{}-{}.cpp created.".format(id_slug, attempts))
-
-
-
+    print("{} created.".format(filename))
