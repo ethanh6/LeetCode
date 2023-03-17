@@ -37,7 +37,7 @@ TEST_CASE("[question slug]", "[question id]"){
 - [virtualenv](https://virtualenv.pypa.io/en/latest/)
 - Neovim
 
-# How to use:
+# How to use
 
 > all commands are run in project root directory
 
