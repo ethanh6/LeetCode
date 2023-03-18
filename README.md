@@ -107,7 +107,7 @@ Or in Neovim, with keymap, run
 ```lua
 <leader>make
 -- will be equivalent to
--- :make -C build<cr>:execute '!./build/' . strpart(expand('%:t'), 0, 4)<enter>"
+-- :make -C build<cr>:execute '!./build/' . strpart(expand('%:t'), 0, 4)<enter>:make -C build clean<enter>"
 ```
 
 

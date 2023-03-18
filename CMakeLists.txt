@@ -17,3 +17,4 @@ endfunction(add_problem)
 
 # list of questions here
 
+add_problem(0000 common-patterns)
