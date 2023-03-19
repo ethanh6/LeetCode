@@ -83,10 +83,7 @@ cmake -S . -B build
 
 <br>
 
-### 4. Build project
-
-Run it everytime a question is added, since changes are made to
-`CMakeLists.txt`.
+### 4. Build the project
 
 ```bash
 cmake --build build
@@ -94,33 +91,37 @@ cmake --build build
 
 <br>
 
-### 5. Compile and run
+### 5. Compile & execute
 
-If the first command failed, the second one will not run.
+This bash script would make the target, execute it, and remove it.
+
+`question_id` is 4 digit number, front-padded with zeros.
 
 ```bash
-make -C build && ./build/<question_id>
+make -C build <question_id> && ./build/<question_id> && make -C build clean
 ```
-
-Or in Neovim, with keymap, run 
-
-```lua
-<leader>make
--- will be equivalent to
--- :make -C build<cr>:execute '!./build/' . strpart(expand('%:t'), 0, 4)<enter>:make -C build clean<enter>"
-```
-
-
 <br>
+Or run with keymap
 
-### 6. Clean up (optional)
+```vim
+<leader>make
 
-```bash
-make -C build clean
+-- this will be mapped to the following commands.
+-- strpart(expand('%:t') retrieves the 4 digit question id, which is the target name.
+
+:execute '!make -C build ' . strpart(expand('%:t'), 0, 4)<cr>:execute '!./build/' . strpart(expand('%:t'), 0, 4)<cr>:make -C build clean<cr>
 ```
+<br>
+For instance, say the current buffer is "src/0001-two-sum.cpp", the script would
+be interpreted as
+
+`make -C build 0001 && ./build/0001 && make -C build clean`
+
+Reference: [My Neovim config](https://github.com/ethanh6/dotfiles/blob/main/.config/nvim/lua/user/keymaps.lua)
 
 <br>
 
 ## todo:
 
 1. build integration with neovim
+2. auto-submit with leetcode api
