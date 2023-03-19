@@ -18,3 +18,4 @@ endfunction(add_problem)
 # list of questions here
 
 add_problem(0000 common-patterns)
+add_problem(0001 two-sum)

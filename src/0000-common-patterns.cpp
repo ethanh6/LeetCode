@@ -135,3 +135,64 @@ TEST_CASE("split string with delimeter") {
     REQUIRE(tokens[3] == "d");
   }
 }
+
+TEST_CASE("right most set bit") {
+  auto x = 5; // 0b101
+  REQUIRE((x & -x) == 1);
+
+  auto y = 12; // 0b01100
+  REQUIRE((y & -y) == 4);
+}
+
+TEST_CASE("cyclic array") {
+  vector<int> nums{1, 3, 5, 7, 9};
+  auto _size = nums.size();
+  vector<int> res(_size * 2);
+
+  for (auto i = 0; i < _size * 2; ++i) {
+    res[i] = nums[i % _size];
+  }
+
+  REQUIRE(res.size() == 10);
+  REQUIRE(res == vector<int>{1, 3, 5, 7, 9, 1, 3, 5, 7, 9});
+}
+
+TEST_CASE("vector comparison") {
+  vector<int> v1{1, 2, 3};
+  vector<int> v2{1, 2, 3};
+  REQUIRE(v1 == v2);
+}
+
+int mygcd(int a, int b) {
+  return b == 0 ? a : gcd(b, a % b); // tail recursion
+}
+
+TEST_CASE("gcd - greatest common divisor") {
+  REQUIRE(mygcd(100, 12) == 4);
+
+  // or use the stdlib version
+  constexpr auto p{3 * 7 * 11};
+  constexpr auto q{3 * 11 * 17};
+  REQUIRE(std::gcd(p, q) == 3 * 11);
+}
+
+TEST_CASE("concat char to string") {
+  char c0 = 'a', c1 = 'b';
+
+  // this isn't concatenation since chars are treated as integer
+  REQUIRE(c0 + c1 == 195);
+
+  // append char to a empty string makes the intended result
+  REQUIRE(string("") + c0 + c1 == string("ab"));
+}
+
+TEST_CASE("combination") {
+  string s = "abcd";
+  vector<string> res;
+  for (auto i = 0; i < s.size(); ++i) {
+    for (auto j = i + 1; j < s.size(); ++j) {
+      res.emplace_back(string("") + s[i] + s[j]);
+    }
+  }
+  REQUIRE(res == vector<string>{"ab", "ac", "ad", "bc", "bd", "cd"});
+}
