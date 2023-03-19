@@ -19,3 +19,4 @@ endfunction(add_problem)
 
 add_problem(0000 common-patterns)
 add_problem(0001 two-sum)
+add_problem(0121 best-time-to-buy-and-sell-stock)
