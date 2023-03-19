@@ -146,10 +146,10 @@ TEST_CASE("right most set bit") {
 
 TEST_CASE("cyclic array") {
   vector<int> nums{1, 3, 5, 7, 9};
-  auto _size = nums.size();
+  int _size = nums.size();
   vector<int> res(_size * 2);
 
-  for (auto i = 0; i < _size * 2; ++i) {
+  for (int i = 0; i < _size * 2; ++i) {
     res[i] = nums[i % _size];
   }
 
@@ -188,9 +188,10 @@ TEST_CASE("concat char to string") {
 
 TEST_CASE("combination") {
   string s = "abcd";
+  int _size = s.size();
   vector<string> res;
-  for (auto i = 0; i < s.size(); ++i) {
-    for (auto j = i + 1; j < s.size(); ++j) {
+  for (int i = 0; i < _size; ++i) {
+    for (int j = i + 1; j < _size; ++j) {
       res.emplace_back(string("") + s[i] + s[j]);
     }
   }

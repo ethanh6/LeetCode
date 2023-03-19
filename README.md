@@ -83,7 +83,7 @@ cmake -S . -B build
 
 <br>
 
-### 4. Build the project
+### 4. Build all targets
 
 ```bash
 cmake --build build
@@ -91,7 +91,7 @@ cmake --build build
 
 <br>
 
-### 5. Compile & execute
+### 5. Compile & execute single target
 
 This bash script would make the target, execute it, and remove it.
 

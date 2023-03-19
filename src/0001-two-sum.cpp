@@ -5,7 +5,7 @@ public:
   vector<int> twoSum(vector<int> &nums, int target) {
     vector<int> res;
     unordered_map<int, int> seen;
-    for (auto i = 0; i < nums.size(); ++i) {
+    for (size_t i = 0; i < nums.size(); ++i) {
       if (seen.count(target - nums[i]) != 0) {
         res.emplace_back(seen[target - nums[i]]);
         res.emplace_back(i);
