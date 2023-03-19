@@ -13,7 +13,6 @@ public:
         seen[nums[i]] = i;
       }
     }
-
     return res;
   }
 };
