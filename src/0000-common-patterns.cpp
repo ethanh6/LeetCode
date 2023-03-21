@@ -1,25 +1,5 @@
 #include "leetcode.hpp"
 
-TEST_CASE("accumulate") {
-  vector<int> v{1, 2, 3, 4, 5};
-  auto sum = accumulate(v.cbegin(), v.cend(), 0);
-  REQUIRE(sum == 15);
-}
-
-TEST_CASE("min and max element") {
-  vector<int> v{1, 2, 3, 4, 5};
-
-  const auto _max = max_element(v.cbegin(), v.cend());
-  REQUIRE(*_max == 5);
-
-  const auto _min = min_element(v.cbegin(), v.cend());
-  REQUIRE(*_min == 1);
-
-  const auto _min_max = minmax_element(v.cbegin(), v.cend());
-  REQUIRE(*_min_max.first == 1);
-  REQUIRE(*_min_max.second == 5);
-}
-
 TEST_CASE("casting: str & int & float") {
   const string s = to_string(35); // defined in <string>
   REQUIRE(s == "35");
@@ -157,12 +137,6 @@ TEST_CASE("cyclic array") {
   REQUIRE(res == vector<int>{1, 3, 5, 7, 9, 1, 3, 5, 7, 9});
 }
 
-TEST_CASE("vector comparison") {
-  vector<int> v1{1, 2, 3};
-  vector<int> v2{1, 2, 3};
-  REQUIRE(v1 == v2);
-}
-
 int mygcd(int a, int b) {
   return b == 0 ? a : gcd(b, a % b); // tail recursion
 }
@@ -198,12 +172,55 @@ TEST_CASE("combination") {
   REQUIRE(res == vector<string>{"ab", "ac", "ad", "bc", "bd", "cd"});
 }
 
+/////////////////////
+// Vector
+/////////////////////
+
 TEST_CASE("remove element from vector") {
-  vector<int> nums {1, 2, 3, 4, 5};
+  vector<int> nums{1, 2, 3, 4, 5};
   nums.erase(nums.begin() + 1);
-  REQUIRE(nums == vector<int> {1, 3, 4, 5});
+  REQUIRE(nums == vector<int>{1, 3, 4, 5});
 
   nums.pop_back();
-  REQUIRE(nums == vector<int> {1, 3, 4});
+  REQUIRE(nums == vector<int>{1, 3, 4});
+}
 
+TEST_CASE("accumulate") {
+  vector<int> v{1, 2, 3, 4, 5};
+  auto sum = accumulate(v.cbegin(), v.cend(), 0);
+  REQUIRE(sum == 15);
+}
+
+TEST_CASE("min and max element") {
+  vector<int> v{1, 2, 3, 4, 5};
+
+  const auto _max = max_element(v.cbegin(), v.cend());
+  REQUIRE(*_max == 5);
+
+  const auto _min = min_element(v.cbegin(), v.cend());
+  REQUIRE(*_min == 1);
+
+  const auto _min_max = minmax_element(v.cbegin(), v.cend());
+  REQUIRE(*_min_max.first == 1);
+  REQUIRE(*_min_max.second == 5);
+}
+
+TEST_CASE("vector comparison") {
+  vector<int> v1{1, 2, 3};
+  vector<int> v2{1, 2, 3};
+  vector<int> v3{2, 2, 3};
+  REQUIRE(v1 == v2);
+  REQUIRE(v2 < v3);
+}
+
+TEST_CASE("sort by custom comparator") {
+  vector<vector<int>> v{{2, 6}, {1, 3}, {8, 10}, {15, 18}};
+
+  auto comp = [&](const vector<int> &a, const vector<int> &b) {
+    return a[0] != b[0] ? a[0] < b[0] : a[1] < b[1];
+  };
+
+  sort(v.begin(), v.end(), comp);
+
+  REQUIRE(v == vector<vector<int>>{{1, 3}, {2, 6}, {8, 10}, {15, 18}});
 }
