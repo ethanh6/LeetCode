@@ -197,3 +197,13 @@ TEST_CASE("combination") {
   }
   REQUIRE(res == vector<string>{"ab", "ac", "ad", "bc", "bd", "cd"});
 }
+
+TEST_CASE("remove element from vector") {
+  vector<int> nums {1, 2, 3, 4, 5};
+  nums.erase(nums.begin() + 1);
+  REQUIRE(nums == vector<int> {1, 3, 4, 5});
+
+  nums.pop_back();
+  REQUIRE(nums == vector<int> {1, 3, 4});
+
+}

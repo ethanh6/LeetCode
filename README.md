@@ -1,9 +1,11 @@
 # Leetcode
 
-This is a Leetcode solutions tracker developed using Python that automatically
+This is a personal Leetcode solutions tracker developed using Python that automatically
 retrieves code snippets from the Leetcode API. It comes with a preconfigured code template
 that includes essential C++ headers and a Catch2 unit testing boilerplate to help verify
 code correctness. CMake is utilized to streamline the building and testing process for ease of use.
+
+This problem set is based on [Grind 169](https://www.techinterviewhandbook.org/grind75?hours=30&difficulty=Medium&difficulty=Hard&difficulty=Easy&weeks=5&mode=preferences&order=topics&grouping=weeks#)
 
 ```cpp
 // template
