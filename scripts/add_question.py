@@ -2,7 +2,7 @@ import os
 import leetcode
 import leetcode.auth
 from dotenv import load_dotenv
-
+from html2text import html2text
 
 load_dotenv()
 
@@ -87,16 +87,23 @@ cpp_snippet = [
 ][0]
 question_id = "{:04d}".format(int(res.data.question.question_frontend_id))
 
+# get question description and convert to markdown
+desc = res.data.question.content
+content_no_nbsp = "".join([x for x in desc.split('\n') if "nbsp" not in x])
+content_md = "/*\n" + html2text(content_no_nbsp) + "\n*/\n\n"
 
-# my desired cpp file template, containing includes statements,
-# the actual snippets from the api requests and the test statements
+# my desired cpp file template, containing
+# question description,
+# includes statements,
+# the actual snippets from the api requests,
+# the tests
 _includes = '#include "leetcode.hpp"\n\n'
 _snippets = "{S}\n\n".format(S=cpp_snippet)
 _tests = 'TEST_CASE("{N}", "[{I}]"){{\n    Solution s;\n    REQUIRE(true);\n}}'.format(
     N=question_slug, I=question_id
 )
 
-cpp_template = _includes + _snippets + _tests
+cpp_template = content_md + _includes + _snippets + _tests
 
 
 # write the cpp template to file
