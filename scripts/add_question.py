@@ -99,7 +99,7 @@ content_md = "/*\n" + html2text(content_no_nbsp) + "\n*/\n\n"
 # the tests
 _includes = '#include "leetcode.hpp"\n\n'
 _snippets = "{S}\n\n".format(S=cpp_snippet)
-_tests = 'TEST_CASE("{N}", "[{I}]"){{\n    Solution s;\n    REQUIRE(true);\n}}'.format(
+_tests = 'TEST_CASE("{N}", "[{I}]"){{\n    Solution sol;\n    REQUIRE(true);\n}}'.format(
     N=question_slug, I=question_id
 )
 
