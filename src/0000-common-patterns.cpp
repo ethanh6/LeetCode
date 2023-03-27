@@ -225,15 +225,22 @@ TEST_CASE("sort by custom comparator") {
   REQUIRE(v == vector<vector<int>>{{1, 3}, {2, 6}, {8, 10}, {15, 18}});
 }
 
-
 TEST_CASE("std::transform") {
-  vector<vector<int>> v{};
+  vector<int> v{1, 2, 3};
+
+  // when newVector has been initialized with size,
+  // use newVector.begin()
+  vector<int> plus_one(v.size());
+  transform(v.cbegin(), v.cend(), plus_one.begin(),
+            [&](const int &x) { return x + 1; });
+
+  // when newVector is empty or you simply want to append elements,
+  // use back_inserter(newVector)
+  vector<int> plus_two;
+  transform(v.cbegin(), v.cend(), back_inserter(plus_two),
+            [&](const int &x) { return x + 2; });
 
 
-  REQUIRE(v == vector<vector<int>>{{1, 3}, {2, 6}, {8, 10}, {15, 18}});
+  REQUIRE(plus_one == vector<int>{2, 3, 4});
+  REQUIRE(plus_two == vector<int>{3, 4, 5});
 }
-
-
-
-
-

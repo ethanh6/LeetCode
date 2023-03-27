@@ -30,9 +30,9 @@ an integer.
 class Solution {
 public:
   string largestNumber(vector<int> &nums) {
-    vector<string> strs;
-    for (const auto &n : nums)
-      strs.emplace_back(to_string(n));
+    vector<string> strs(nums.size());
+    std::transform(nums.begin(), nums.end(), strs.begin(),
+                   [&](const int &x) { return to_string(x); });
 
     auto comp = [&](const string &a, const string &b) { return a + b > b + a; };
 
