@@ -224,3 +224,16 @@ TEST_CASE("sort by custom comparator") {
 
   REQUIRE(v == vector<vector<int>>{{1, 3}, {2, 6}, {8, 10}, {15, 18}});
 }
+
+
+TEST_CASE("std::transform") {
+  vector<vector<int>> v{};
+
+
+  REQUIRE(v == vector<vector<int>>{{1, 3}, {2, 6}, {8, 10}, {15, 18}});
+}
+
+
+
+
+
