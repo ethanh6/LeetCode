@@ -5,7 +5,7 @@ retrieves code snippets from the Leetcode API. It comes with a preconfigured cod
 that includes essential C++ headers and a Catch2 unit testing boilerplate to help verify
 code correctness. CMake is utilized to streamline the building and testing process for ease of use.
 
-This problem set is based on [Grind 169](https://www.techinterviewhandbook.org/grind75?hours=30&difficulty=Medium&difficulty=Hard&difficulty=Easy&weeks=5&mode=preferences&order=topics&grouping=weeks#)
+This problem set is based on [Grind 169](https://www.techinterviewhandbook.org/grind75?hours=30&difficulty=Medium&difficulty=Hard&difficulty=Easy&weeks=5&mode=preferences&order=topics&grouping=weeks#).
 
 ```cpp
 // template
@@ -21,7 +21,7 @@ public:
 
 TEST_CASE("[question slug]", "[question id]"){
   Solution s;
-  REQUIRE(s.func() == 123);
+  CHECK(s.func() == 123);
 }
 ```
 
