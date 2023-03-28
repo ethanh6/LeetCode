@@ -43,7 +43,7 @@ palindromes are ["a","a"]
 
 #include "leetcode.hpp"
 
-class Solution {
+class Solution_0 {
 public:
   bool isPalindrome(const string &s) {
     if (s.size() == 0)
@@ -130,49 +130,68 @@ public:
   }
 };
 
+// for Solution_0
 TEST_CASE("isPalindrome") {
   string s("abc");
-  REQUIRE_FALSE(Solution().isPalindrome(s));
+  REQUIRE_FALSE(Solution_0().isPalindrome(s));
   s = "aaa";
-  REQUIRE(Solution().isPalindrome(s));
+  REQUIRE(Solution_0().isPalindrome(s));
   s = "";
-  REQUIRE(Solution().isPalindrome(s));
+  REQUIRE(Solution_0().isPalindrome(s));
 }
 
 TEST_CASE("reverse") {
-  Solution s;
+  Solution_0 s;
   CHECK(s.rev("abc") == "cba");
   CHECK(s.rev("") == "");
 }
 
 TEST_CASE("prefix") {
   string s("abbb");
-  CHECK(Solution().valid_prefixes(s) == vector<string>{"a", "ab", "abb"});
+  CHECK(Solution_0().valid_prefixes(s) == vector<string>{"a", "ab", "abb"});
   s = "";
-  CHECK(Solution().valid_prefixes(s) == vector<string>{});
+  CHECK(Solution_0().valid_prefixes(s) == vector<string>{});
   s = "abccb";
-  CHECK(Solution().valid_prefixes(s) == vector<string>{"a", "abcc"});
+  CHECK(Solution_0().valid_prefixes(s) == vector<string>{"a", "abcc"});
 }
 
 TEST_CASE("suffix") {
   string s("abc");
-  CHECK(Solution().valid_suffixes(s) == vector<string>{"bc"});
+  CHECK(Solution_0().valid_suffixes(s) == vector<string>{"bc"});
   s = "";
-  CHECK(Solution().valid_suffixes(s) == vector<string>{});
+  CHECK(Solution_0().valid_suffixes(s) == vector<string>{});
   s = "bbba";
-  CHECK(Solution().valid_suffixes(s) == vector<string>{"bba", "ba", "a"});
+  CHECK(Solution_0().valid_suffixes(s) == vector<string>{"bba", "ba", "a"});
 }
 
 TEST_CASE("palindrome-pairs", "[0336]") {
-  Solution sol;
+  Solution_0 sol;
   vector<string> words = {"abcd", "dcba", "lls", "s", "sssll"};
   vector<vector<int>> output = {{0, 1}, {1, 0}, {3, 2}, {2, 4}};
   CHECK(sol.palindromePairs(words) == output);
 }
 
 TEST_CASE("palindrome-pairs - 1", "[0336]") {
-  Solution sol;
+  Solution_0 sol;
   vector<string> words = {"bat", "tab", "cat"};
   vector<vector<int>> output = {{0, 1}, {1, 0}};
   CHECK(sol.palindromePairs(words) == output);
 }
+
+// class Solution_1 {
+// public:
+//   // main function
+//   vector<vector<int>> palindromePairs(vector<string> &words) {}
+// };
+//
+//
+// // for Solution_1
+// {
+//   TEST_CASE("palindrome-pairs", "[0336]") {
+//     Solution_1 sol;
+//     vector<string> words = {"bat", "tab", "cat"};
+//     vector<vector<int>> output = {{0, 1}, {1, 0}};
+//     CHECK(sol.palindromePairs(words) == output);
+//   }
+//
+// }
