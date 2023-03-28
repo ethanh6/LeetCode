@@ -46,30 +46,26 @@ palindromes are ["a","a"]
 class Solution {
 public:
   bool isPalindrome(const string &s) {
-    if (s.size() <= 1)
+    if (s.size() == 0)
       return true;
     int i = 0, j = s.size() - 1;
     while (i <= j) {
-      if (s[i] != s[j]) {
+      if (s[i++] != s[j--]) {
         return false;
       }
-      i++;
-      j--;
     }
     return true;
   }
 
-  string reverse(string s) {
-    int i = 0, j = s.size() - 1;
-    while (i <= j)
-      swap(s[i++], s[j--]);
+  string rev(string s) {
+    std::reverse(s.begin(), s.end());
     return s;
   }
 
-  vector<string> valid_prefixes(const string s) {
+  vector<string> valid_prefixes(const string &s) {
     vector<string> result;
     int n = s.size();
-    for (int i = 0; i <= n; ++i) {
+    for (int i = 0; i < n; ++i) {
       // if the suffix is palindrome,
       // the prefix can be used to match
       if (isPalindrome(s.substr(i, n - i))) {
@@ -79,10 +75,10 @@ public:
     return result;
   }
 
-  vector<string> valid_suffixes(string s) {
+  vector<string> valid_suffixes(const string &s) {
     vector<string> result;
     int n = s.size();
-    for (int i = 0; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
       // if the prefix is palindrome
       // the suffix can be used to match
       if (isPalindrome(s.substr(0, i))) {
@@ -92,8 +88,10 @@ public:
     return result;
   }
 
+  // main function
   vector<vector<int>> palindromePairs(vector<string> &words) {
     int n = words.size();
+
     unordered_map<string, int> lookup;
     for (int i = 0; i < n; ++i)
       lookup[words[i]] = i;
@@ -102,28 +100,28 @@ public:
 
     for (int i = 0; i < n; ++i) {
       string w = words[i];
-      string reversed_w = reverse(w);
+      string reversed_w = rev(w);
 
       // case 1
       if (lookup.count(reversed_w) != 0 && lookup[reversed_w] != i) {
-        result.emplace_back(i, lookup[reversed_w]);
+        result.push_back(vector<int>{i, lookup[reversed_w]});
       }
 
       // case 2
       vector<string> prefixes = valid_prefixes(w);
-      for (const auto &p : prefixes) {
-        string rev_pref = reverse(p);
+      for (const auto &pref : prefixes) {
+        string rev_pref = rev(pref);
         if (lookup.count(rev_pref) != 0) {
-          result.emplace_back(i, lookup[rev_pref]);
+          result.push_back(vector<int>{i, lookup[rev_pref]});
         }
       }
 
       // case 3
       vector<string> suffixes = valid_suffixes(w);
-      for (const auto &p : suffixes) {
-        string rev_suff = reverse(p);
+      for (const auto &suff : suffixes) {
+        string rev_suff = rev(suff);
         if (lookup.count(rev_suff) != 0) {
-          result.emplace_back(i, lookup[rev_suff]);
+          result.push_back(vector<int>{lookup[rev_suff], i});
         }
       }
     }
@@ -143,33 +141,33 @@ TEST_CASE("isPalindrome") {
 
 TEST_CASE("reverse") {
   Solution s;
-  CHECK(s.reverse("abc") == "cba");
-  CHECK(s.reverse("") == "");
+  CHECK(s.rev("abc") == "cba");
+  CHECK(s.rev("") == "");
 }
 
 TEST_CASE("prefix") {
   string s("abbb");
-  CHECK(Solution().valid_prefixes(s) == vector<string>{"a", "ab", "abb", "abbb"});
+  CHECK(Solution().valid_prefixes(s) == vector<string>{"a", "ab", "abb"});
   s = "";
-  CHECK(Solution().valid_prefixes(s) == vector<string>{""});
+  CHECK(Solution().valid_prefixes(s) == vector<string>{});
   s = "abccb";
-  CHECK(Solution().valid_prefixes(s) == vector<string>{"a", "abcc", "abccb"});
+  CHECK(Solution().valid_prefixes(s) == vector<string>{"a", "abcc"});
 }
 
 TEST_CASE("suffix") {
   string s("abc");
-  CHECK(Solution().valid_suffixes(s) == vector<string>{"abc", "bc"});
+  CHECK(Solution().valid_suffixes(s) == vector<string>{"bc"});
   s = "";
-  CHECK(Solution().valid_suffixes(s) == vector<string>{""});
+  CHECK(Solution().valid_suffixes(s) == vector<string>{});
   s = "bbba";
-  CHECK(Solution().valid_suffixes(s) == vector<string>{"bbba", "bba", "ba", "a"});
+  CHECK(Solution().valid_suffixes(s) == vector<string>{"bba", "ba", "a"});
 }
 
 TEST_CASE("palindrome-pairs", "[0336]") {
   Solution sol;
   vector<string> words = {"abcd", "dcba", "lls", "s", "sssll"};
   vector<vector<int>> output = {{0, 1}, {1, 0}, {3, 2}, {2, 4}};
-  // CHECK(sol.palindromePairs(words) == output);
+  CHECK(sol.palindromePairs(words) == output);
 }
 
 TEST_CASE("palindrome-pairs - 1", "[0336]") {
