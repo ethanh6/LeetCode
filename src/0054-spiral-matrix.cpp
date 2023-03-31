@@ -53,11 +53,14 @@ public:
 
     while (nSteps[iDir % 2]) {
       for (int i = 0; i < nSteps[iDir % 2]; ++i) {
+        // update coordinate and push
         ir += dirs[iDir][0];
         ic += dirs[iDir][1];
         res.push_back(matrix[ir][ic]);
       }
       nSteps[iDir % 2]--;
+
+      // update direction
       iDir = (iDir + 1) % 4;
     }
     return res;
