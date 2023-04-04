@@ -14,11 +14,23 @@ TEST_CASE("casting: str & int & float") {
   REQUIRE(f == 0.123f);
 }
 
-TEST_CASE("converting: vector & set") {
+TEST_CASE("convert: vector & set") {
   vector<string> v0{"apple", "banana", "lemon"};
   set<string> s0{v0.cbegin(), v0.cend()};    // vector -> set
   vector<string> v1{s0.cbegin(), s0.cend()}; // set -> vector
   REQUIRE(v0 == v1);
+}
+
+TEST_CASE("convert: int and char") {
+  // interger 0 ~ 9 to char
+  int x = 9;
+  char xx = '0' + x;
+  REQUIRE(xx == '9');
+
+  // char 0 ~ 9 to int
+  char y = '5';
+  int yy = y - '0';
+  REQUIRE(yy == 5);
 }
 
 TEST_CASE("custom compare, priority_queue") {
