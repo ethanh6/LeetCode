@@ -1,5 +1,5 @@
 /*
-Given an `m x n` integer matrix `matrix`, if an element is `0`, set its entire
+G3badiven an `m x n` integer matrix `matrix`, if an element is `0`, set its entire
 row and column to `0`'s.
 
 You must do it [in place](https://en.wikipedia.org/wiki/In-place_algorithm).
@@ -117,7 +117,7 @@ TEST_CASE("set-matrix-zeroes - 2", "[0073]") {
 
 TEST_CASE("set-matrix-zeroes - 3", "[0073]") {
   Solution sol;
-  auto matrix = vector<vector<int>> {{8, 3, 6, 9, 7, 8, 0, 6},
+  auto matrix = vector<vector<int>>{{8, 3, 6, 9, 7, 8, 0, 6},
                                      {0, 3, 7, 0, 0, 4, 3, 8},
                                      {5, 3, 6, 7, 1, 6, 2, 6},
                                      {8, 7, 2, 5, 0, 6, 4, 0},
