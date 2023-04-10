@@ -59,7 +59,6 @@ public:
 
     queue<vector<int>> rotten;
     int fresh = 0;
-    int max_step = INT_MIN;
 
     // build set of rotten oranges
     for (int i = 0; i < this->R; ++i) {
