@@ -131,3 +131,11 @@ TEST_CASE("word-ladder - 1", "[0127]") {
   int output = 0;
   CHECK(sol.ladderLength(beginWord, endWord, wordList) == output);
 }
+
+TEST_CASE("word-ladder - 2", "[0127]") {
+  Solution sol;
+  string beginWord = "a", endWord = "c";
+  vector<string> wordList = {"a", "b" "c"};
+  int output = 2;
+  CHECK(sol.ladderLength(beginWord, endWord, wordList) == output);
+}
