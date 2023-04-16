@@ -49,7 +49,8 @@ and 2 should be taken after you finished course 0.So one correct course order is
 
 #include "leetcode.hpp"
 
-struct CourseNode {
+class CourseNode {
+public:
   int inDegree;
   vector<int> nextCourses;
 };
@@ -78,7 +79,7 @@ public:
       ans.push_back(course_id);
       for (const auto &next_course : nodes[course_id].nextCourses) {
         nodes[next_course].inDegree--;
-        if (nodes[next_course].inDegree == 0) 
+        if (nodes[next_course].inDegree == 0)
           q.push(next_course);
       }
     }
