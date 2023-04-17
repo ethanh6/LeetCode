@@ -40,3 +40,11 @@ template <typename T> void print_vector(const T &t) {
 template <typename T> void print_2d_vector(const T &t) {
   std::for_each(t.cbegin(), t.cend(), print_vector<typename T::value_type>);
 }
+
+template <typename Q> void print_queue(Q q) {
+  // NB: q is passed by value because there is no way to traverse
+  // priority_queue's content without erasing the queue.
+  for (;!q.empty(); q.pop())
+    std::cout << q.top() << ", ";
+  std::cout << endl;
+}
