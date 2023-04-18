@@ -61,19 +61,18 @@ path with no stops from city 0 to 2 is marked in red and has cost 500.
 
 #include "leetcode.hpp"
 
-class Node {
+class Solution_with_node_class {
 public:
-  Node(){}
-  Node(int _id, int _cost) : id(_id), cost(_cost) {}
-  int id, cost;
-  friend std::ostream &operator<<(std::ostream &o, const Node &node) {
-    o << "(" << node.id << ", " << node.cost << ")";
-    return o;
-  }
-};
-
-class Solution {
-public:
+  class Node {
+  public:
+    Node() {}
+    Node(int _id, int _cost) : id(_id), cost(_cost) {}
+    int id, cost;
+    friend std::ostream &operator<<(std::ostream &o, const Node &node) {
+      o << "(" << node.id << ", " << node.cost << ")";
+      return o;
+    }
+  };
   int findCheapestPrice(int n, vector<vector<int>> &flights, int src, int dst,
                         int k) {
 
@@ -109,7 +108,9 @@ public:
       // explore neighbor nodes
       for (const auto &next_node : adj[cur_node.id]) {
         int new_cost = cur_node.cost + next_node.cost;
-        if (visited.count(next_node.id) == 0 || (visited.count(next_node.id) != 0 && new_cost < visited[next_node.id].cost)) {
+        if (visited.count(next_node.id) == 0 ||
+            (visited.count(next_node.id) != 0 &&
+             new_cost < visited[next_node.id].cost)) {
           auto new_node = Node(next_node.id, new_cost);
           visited[next_node.id] = new_node;
           pq.push(new_node);
@@ -117,6 +118,52 @@ public:
       }
     }
 
+    return -1;
+  }
+};
+
+class Solution {
+public:
+  int findCheapestPrice(int n, vector<vector<int>> &flights, int src, int dst,
+                        int k) {
+    // Create adjList
+    // map: from -> vector<{to, price}>
+    unordered_map<int, vector<pair<int, int>>> adjList;
+    for (auto flight : flights)
+      adjList[flight[0]].push_back({flight[1], flight[2]});
+
+    // minHeap based on cost of distance from source
+    priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>>
+        minHeap;
+
+    // avoid TLE
+    vector<int> dist(n, INT_MAX);
+
+    // cost, vertex, hops
+    minHeap.push({0, src, 0});
+
+    // perform Dijkstra
+    for (; !minHeap.empty(); minHeap.pop()) {
+      auto t = minHeap.top();
+      int cost = t[0], curr = t[1], stop = t[2];
+
+      // optimization to avoid TLE
+      if (dist[curr] < stop)
+        continue;
+      dist[curr] = stop;
+
+      // solution found
+      if (curr == dst) 
+        return cost;
+
+      // stop exploring when there's no more stops to go
+      if (stop > k) 
+        continue;
+
+      for (auto next : adjList[curr]) 
+        minHeap.push(vector<int>{cost + next.second, next.first, stop + 1});
+
+    }
     return -1;
   }
 };
@@ -129,16 +176,24 @@ TEST_CASE("cheapest-flights-within-k-stops", "[0787]") {
   CHECK(sol.findCheapestPrice(n, flights, src, dst, k) == output);
 }
 
-// TEST_CASE("cheapest-flights-within-k-stops - 1", "[0787]") {
-//   Solution sol;
-//   vector<vector<int>> flights{{0, 1, 100}, {1, 2, 100}, {0, 2, 500}};
-//   int n = 3, src = 0, dst = 2, k = 1, output = 200;
-//   CHECK(sol.findCheapestPrice(n, flights, src, dst, k) == output);
-// }
+TEST_CASE("cheapest-flights-within-k-stops - 1", "[0787]") {
+  Solution sol;
+  vector<vector<int>> flights{{0, 1, 100}, {1, 2, 100}, {0, 2, 500}};
+  int n = 3, src = 0, dst = 2, k = 1, output = 200;
+  CHECK(sol.findCheapestPrice(n, flights, src, dst, k) == output);
+}
 
-// TEST_CASE("cheapest-flights-within-k-stops - 2", "[0787]") {
-//   Solution sol;
-//   vector<vector<int>> flights{{0, 1, 100}, {1, 2, 100}, {0, 2, 500}};
-//   int n = 3, src = 0, dst = 2, k = 0, output = 500;
-//   CHECK(sol.findCheapestPrice(n, flights, src, dst, k) == output);
-// }
+TEST_CASE("cheapest-flights-within-k-stops - 2", "[0787]") {
+  Solution sol;
+  vector<vector<int>> flights{{0, 1, 100}, {1, 2, 100}, {0, 2, 500}};
+  int n = 3, src = 0, dst = 2, k = 0, output = 500;
+  CHECK(sol.findCheapestPrice(n, flights, src, dst, k) == output);
+}
+
+TEST_CASE("cheapest-flights-within-k-stops - 3", "[0787]") {
+  Solution sol;
+  vector<vector<int>> flights{
+      {0, 1, 100}, {1, 2, 400}, {0, 2, 300}, {2, 3, 50}};
+  int n = 4, src = 0, dst = 3, k = 2, output = 350;
+  CHECK(sol.findCheapestPrice(n, flights, src, dst, k) == output);
+}
