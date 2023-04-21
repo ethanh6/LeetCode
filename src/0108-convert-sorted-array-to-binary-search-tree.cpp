@@ -45,18 +45,16 @@ struct TreeNode {
 
 class Solution {
 public:
-  TreeNode *helper(int lo, int hi) {
+  TreeNode *sortedArrayToBST(vector<int> &nums) {
+    std::function<TreeNode *(int, int)> helper = [&](int lo, int hi) -> TreeNode*{
       if (lo > hi)
         return nullptr;
 
       int mid = lo + (hi - lo) / 2;
 
-      TreeNode *root = new TreeNode(nums[mid], helper(lo, mid - 1), helper(mid + 1, hi));
+      return new TreeNode(nums[mid], helper(lo, mid - 1), helper(mid + 1, hi));
+    };
 
-      return root;
-  }
-
-  TreeNode *sortedArrayToBST(vector<int> &nums) {
     return helper(0, nums.size() - 1);
   }
 };
