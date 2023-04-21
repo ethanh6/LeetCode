@@ -1,12 +1,12 @@
 #include "leetcode.hpp"
 
 // Definition for a binary tree node.
-struct TreeNode {
-  int val;
-  TreeNode *left;
-  TreeNode *right;
-  explicit TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
+// struct TreeNode {
+//   int val;
+//   TreeNode *left;
+//   TreeNode *right;
+//   explicit TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+// };
 
 class Solution {
 public:

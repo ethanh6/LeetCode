@@ -44,7 +44,17 @@ template <typename T> void print_2d_vector(const T &t) {
 template <typename Q> void print_queue(Q q) {
   // NB: q is passed by value because there is no way to traverse
   // priority_queue's content without erasing the queue.
-  for (;!q.empty(); q.pop())
+  for (; !q.empty(); q.pop())
     std::cout << q.top() << ", ";
   std::cout << endl;
 }
+
+struct TreeNode {
+  int val;
+  TreeNode *left;
+  TreeNode *right;
+  TreeNode() : val(0), left(nullptr), right(nullptr) {}
+  TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+  TreeNode(int x, TreeNode *left, TreeNode *right)
+      : val(x), left(left), right(right) {}
+};
