@@ -56,22 +56,24 @@ public:
   void nextPermutation(vector<int> &nums) {
     int n = nums.size(), k = 0, l = 0;
 
-    // find the largest index k s.t. nums[k] < nums[k + 1]
-    // aka the first digit that can be swapped
-    for (k = n - 1; k > 0 && nums[k - 1] >= nums[k]; --k);
+    // find k
+    for (k = n - 2; k >= 0; --k)
+      if (nums[k] < nums[k + 1])
+        break;
 
-    // find the largest index l s.t. nums[k] < nums[l]
-    // the bigger digit that appears after l
-    if (k > 0) {
-      for (l = n - 1; nums[l] <= nums[k - 1]; --l)
-        ;
-
-      swap(nums[k - 1], nums[l]);
+    // no such k exists
+    if (k < 0) {
+      reverse(nums.begin(), nums.end());
+      return;
     }
 
-    // no valid k exists
-    // meaning that the entire sequence is non-increasing
-    reverse(nums.begin() + k, nums.end());
+    // find k
+    for (l = n - 1; l > k; --l)
+      if (nums[k] < nums[l])
+        break;
+
+    swap(nums[k], nums[l]);
+    reverse(nums.begin() + k + 1, nums.end());
   }
 };
 
