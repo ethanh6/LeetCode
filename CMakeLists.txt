@@ -24,6 +24,9 @@ function(add_problem id slug)
     target_link_libraries(${id} PRIVATE Catch2::Catch2WithMain)
 endfunction(add_problem)
 
+# leetcode contests
+add_problem(9999 weekly-contest)
+
 # list of questions here
 
 add_problem(0000 common-patterns)
