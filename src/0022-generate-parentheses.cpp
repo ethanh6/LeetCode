@@ -61,14 +61,14 @@ public:
 };
 
 TEST_CASE("generate-parentheses", "[0022]") {
-  Solution sol;
+  Solution_backtrack sol;
   int n = 3;
   vector<string> output{"((()))", "(()())", "(())()", "()(())", "()()()"};
   CHECK(sol.generateParenthesis(n) == output);
 }
 
 TEST_CASE("generate-parentheses - 1", "[0022]") {
-  Solution sol;
+  Solution_backtrack sol;
   int n = 1;
   vector<string> output{"()"};
   CHECK(sol.generateParenthesis(n) == output);
