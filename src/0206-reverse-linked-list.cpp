@@ -74,7 +74,7 @@ public:
       ptr = next;
     }
 
-    return ptr;
+    return prev;
   }
 };
 TEST_CASE("reverse-linked-list", "[0206]") {
