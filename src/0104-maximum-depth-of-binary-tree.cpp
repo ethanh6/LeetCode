@@ -53,6 +53,6 @@ public:
 };
 
 TEST_CASE("maximum-depth-of-binary-tree", "[0104]"){
-    // Solution sol;
+    Solution sol;
     CHECK(true);
 }

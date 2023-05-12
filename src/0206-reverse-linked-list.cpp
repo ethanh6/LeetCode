@@ -78,6 +78,6 @@ public:
   }
 };
 TEST_CASE("reverse-linked-list", "[0206]") {
-  // Solution sol;
+  Solution sol;
   CHECK(true);
 }
