@@ -52,7 +52,7 @@ public:
     }
 };
 
-TEST_CASE("maximum-depth-of-binary-tree", "[0104]"){
-    Solution sol;
-    CHECK(true);
-}
+// TEST_CASE("maximum-depth-of-binary-tree", "[0104]"){
+//     Solution sol;
+//     CHECK(true);
+// }

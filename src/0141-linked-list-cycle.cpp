@@ -70,7 +70,7 @@ public:
   }
 };
 
-TEST_CASE("linked-list-cycle", "[0141]") {
-  Solution sol;
-  CHECK(true);
-}
+// TEST_CASE("linked-list-cycle", "[0141]") {
+//   Solution sol;
+//   CHECK(true);
+// }

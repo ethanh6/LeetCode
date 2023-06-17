@@ -77,7 +77,7 @@ public:
     return prev;
   }
 };
-TEST_CASE("reverse-linked-list", "[0206]") {
-  Solution sol;
-  CHECK(true);
-}
+// TEST_CASE("reverse-linked-list", "[0206]") {
+//   Solution sol;
+//   CHECK(true);
+// }
