@@ -27,14 +27,16 @@ cannot be partitioned into equal sum subsets.
 
 #include "leetcode.hpp"
 
-class Solution {
+class Solution0 {
 public:
   bool canPartition(vector<int> &nums) {
-    int total = 0;
-    for (const auto &x : nums) {
-      total += x;
-    }
 
+    // calculate total for sanity check
+    int total = 0;
+    for (const auto &x : nums)
+      total += x;
+
+    // sanity check
     if (total % 2 == 1)
       return false;
 
@@ -65,6 +67,28 @@ public:
     }
 
     return dp.back().back();
+  }
+};
+
+class Solution {
+public:
+  bool canPartition(vector<int> &nums) {
+    int total = accumulate(nums.begin(), nums.end(), 0);
+    if (total % 2 == 1)
+      return false;
+    int half = total / 2;
+
+    // optimized space by using only 1d vector
+    vector<bool> dp(half + 1, false);
+    dp[0] = true;
+
+    for (const auto &cur_num: nums) {
+      for (int c = half; c >= cur_num; --c) {
+        dp[c] = dp[c] || dp[c - cur_num];
+      }
+    }
+
+    return dp.back();
   }
 };
 
