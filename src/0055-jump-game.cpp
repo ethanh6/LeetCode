@@ -50,7 +50,6 @@ class Solution {
 public:
   bool canJump(vector<int> &nums) {
     int n = nums.size();
-
     vector<bool> dp(n, false);
     dp[n - 1] = true;
 
