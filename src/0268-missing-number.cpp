@@ -69,3 +69,4 @@ TEST_CASE("missing-number - 2", "[0268]") {
   int output = 8;
   CHECK(sol.missingNumber(nums) == output);
 }
+
