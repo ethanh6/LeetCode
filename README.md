@@ -1,4 +1,4 @@
-# Leetcode
+# Leetcode solution tracker
 
 This is a Leetcode solutions tracker built with Python that automatically
 retrieves code snippets from the Leetcode API. It comes with a preconfigured code template
@@ -7,41 +7,22 @@ code correctness. CMake is utilized to streamline the building and testing proce
 
 This problem set is based on [Grind 169](https://www.techinterviewhandbook.org/grind75?hours=30&difficulty=Medium&difficulty=Hard&difficulty=Easy&weeks=5&mode=preferences&order=topics&grouping=weeks#).
 
-```cpp
-// template
-
-#include "leetcode.hpp"
-
-class Solution {
-public:
-    int func() {
-      return 123;
-    }
-};
-
-TEST_CASE("[question slug]", "[question id]"){
-  Solution s;
-  CHECK(s.func() == 123);
-}
-```
 
 # Environment
 
-- CMake & Make
-  - build system
+- [CMake](https://cmake.org/)
+  - the build system
 - [Catch2](https://github.com/catchorg/Catch2)
   - unit testing
-- C++17
+- C++20
   - based on [leetcode official doc](https://support.leetcode.com/hc/en-us/articles/360011833974-What-are-the-environments-for-the-programming-languages-)
 - [Leetcode API](https://pypi.org/project/python-leetcode/)
   - Python3 - scripting
   - GraphQL - fetch the code template
-- [virtualenv](https://virtualenv.pypa.io/en/latest/)
+- [Python virtualenv](https://virtualenv.pypa.io/en/latest/)
 - Neovim
 
 # How to use
-
-> all commands are run in project root directory
 
 ### 0. Create and activate virtual env and install dependencies
 
@@ -59,25 +40,45 @@ pip3 install -r requirements.txt
 python3 scripts/add_question.py
 ```
 
-Enter the question url e.g. https://leetcode.com/problems/remove-element/
+Enter the question url after prompt e.g. https://leetcode.com/problems/remove-element/
 
-Corresponding C++ template file will be created at src/{id}-{slug}.cpp. `CMakeLists.txt` will also be updated.
+Corresponding C++ template file will be created as `src/<question_id>-<question_slug>.cpp`.
 
-If the question already exists, the script does nothing.
+`CMakeLists.txt` will also be updated.
 
-<br>
+If the question already exists, the script will prompt that it exists and does nothing to the file structures.
 
-### 2. Code
+The template:
+```cpp
 
-```bash
-./src/*.cpp
+#include "leetcode.hpp"
+
+class Solution {
+public:
+    int func() {
+        return 123;
+    }
+};
+
+TEST_CASE("[question slug]", "[question id]"){
+    Solution sol;
+    CHECK(sol.func() == 123);
+}
 ```
 
 <br>
 
-### 3. Generate project buildsystem
+### 2. Think and code
 
-Run it once will suffice.
+`question_id` is 4 digit number, front-padded with zeros.
+
+```bash
+./src/<question_id>.cpp
+```
+
+<br>
+
+### 3. Build project
 
 ```bash
 cmake -S . -B build
@@ -91,16 +92,18 @@ cmake -S . -B build
 cmake --build build
 ```
 
-<br>
-
-### 5. Compile & execute single target
-
-This bash script would make the target, execute it, and remove it.
-
-`question_id` is 4 digit number, front-padded with zeros.
+or build only single target (this will only build `./build/<question_id>`)
 
 ```bash
-make -C build <question_id> && ./build/<question_id> && make -C build clean
+cmake --build build --target <questioni_id>
+```
+
+<br>
+
+### 5. Execute your solution
+
+```bash
+./build/<question_id>
 ```
 <br>
 Or run with keymap
@@ -119,11 +122,10 @@ be interpreted as
 
 `make -C build 0001 && ./build/0001 && make -C build clean`
 
+A single script to build -> run -> clean:
+
+```bash
+cmake --build build --target <question_id>; ./build/<question_id>; cmake --build build --target clean
+```
+
 Reference: [My Neovim config](https://github.com/ethanh6/dotfiles/blob/main/.config/nvim/lua/user/keymaps.lua)
-
-<br>
-
-## todo:
-
-1. build integration with neovim
-2. auto-submit with leetcode api
