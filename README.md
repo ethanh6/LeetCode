@@ -1,6 +1,6 @@
 # Leetcode
 
-This is a personal Leetcode solutions tracker developed using Python that automatically
+This is a Leetcode solutions tracker built with Python that automatically
 retrieves code snippets from the Leetcode API. It comes with a preconfigured code template
 that includes essential C++ headers and a Catch2 unit testing boilerplate to help verify
 code correctness. CMake is utilized to streamline the building and testing process for ease of use.
