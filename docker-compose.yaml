@@ -1,0 +1,79 @@
+services:
+  # code:
+  #   build:
+  #     context: ./services/code
+  #   container_name: code
+  #   hostname: code
+  #   volumes:
+  #     - ./services/code:/workspace
+  #   tty: true
+  #   stdin_open: true
+  #   networks:
+  #     - leetcode-network
+  #
+  # execute:
+  #   build:
+  #     context: ./services/execute
+  #   container_name: execute
+  #   hostname: execute
+  #   volumes:
+  #     - ./services/execute:/project
+  #     - ./problems:/project/problems
+  #   tty: true
+  #   stdin_open: true
+  #   working_dir: /project
+  #   networks:
+  #     - leetcode-network
+
+  backend:
+    build:
+      context: ./services/backend
+    container_name: backend
+    hostname: backend
+    ports:
+      - "8000:8000"
+    networks:
+      - leetcode-network
+    volumes:
+      - ./services/backend/app:/usr/src/app
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/leetcode
+    tty: true
+
+  frontend:
+    build:
+      context: ./services/frontend
+      target: development
+    container_name: frontend
+    hostname: frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - leetcode-network
+    # volumes:
+    #   - ./services/frontend/app:/usr/src/app
+    tty: true
+
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    hostname: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: leetcode
+    networks:
+      - leetcode-network
+
+networks:
+  leetcode-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+
+

@@ -27,3 +27,5 @@ trove_classifiers==2023.3.9
 truststore==0.6.0
 urllib3_secure_extra==0.1.0
 xmlrpclib==1.0.1
+pydantic==1.9.0
+
